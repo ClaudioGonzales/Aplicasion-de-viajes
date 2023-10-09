@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Planeta {
+public:
+    string nombre;
+    string fecha_llegada;
+    string fecha_partida;
+    string horas;
+    string horay;
+    string cosas_bonitas;
+    
+
+    Planeta(string nombre, string fecha_llegada, string fecha_partida, string horas , string horay,string cosas_bonitas) 
+        : nombre(nombre), fecha_llegada(fecha_llegada), fecha_partida(fecha_partida), horas(horas), horay(horay), cosas_bonitas(cosas_bonitas) {}
+};
+
+class Itinerario {
+public:
+    vector<Planeta> planetas;
+
+    void agregar_planeta(Planeta planeta) {
+        planetas.push_back(planeta);
+    }
+
+    void mostrar_planeta(int indice) {
+        if (indice >= 0 && indice < planetas.size()) {
+            cout << "Planeta " << indice+1 << ":\n";
+            cout << "Nombre: " << planetas[indice].nombre << "\n";
+            cout << "Fecha de llegada: " << planetas[indice].fecha_llegada << "\n";
+            cout << "Fecha de partida: " << planetas[indice].fecha_partida << "\n";
+             cout << "Hora de llegada: " << planetas[indice].horas << "\n";
+            cout << "Hora de partida: " << planetas[indice].horay << "\n";
+            cout << "Cosas bonitas: " << planetas[indice].cosas_bonitas << "\n\n";
+        } else {
+            cout << "Índice inválido.\n";
+        }
+    }
+};
+
+// Ejemplo de uso
+int main() {
+    Itinerario itinerario;
+    itinerario.agregar_planeta(Planeta("Marte", "10/10/2023", "15/10/2023","5:00 AM","5:04 AM", "El planeta rojo, famoso por sus tormentas de polvo y el monte Olimpo, el volcán más grande del sistema solar."));
+    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","5:00","6:30", "El planeta más grande del sistema solar, conocido por su Gran Mancha Roja, una tormenta más grande que la Tierra."));
+    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","6:30","8:30", "Viaje a la luna io"));
+    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","6:30","8:30", "Viaje a calisto"));
+    int eleccion;
+    char continuar;
+    vector<int> planetas_visitados;
+    
+    do {
+        cout << "Por favor, elige un planeta para visitar:\n1. Marte\n2. Júpiter\n3. Júpiter IO\n4. Júpiter Calisto\n";
+        cin >> eleccion;
+        
+        if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4  ) {
+            itinerario.mostrar_planeta(eleccion - 1);
+            planetas_visitados.push_back(eleccion - 1);
+        } else {
+            cout << "Elección inválida.\n";
+        }
+        
+        cout << "¿Deseas visitar otro planeta? (s/n)\n";
+        cin >> continuar;
+        
+    } while (continuar == 's' || continuar == 'S');
+    
+    cout << "\nHas visitado los siguientes planetas:\n";
+    for (int i =0;i<planetas_visitados.size();i++) {
+        itinerario.mostrar_planeta(i);
+    }
+    
+    return 0;
+}
