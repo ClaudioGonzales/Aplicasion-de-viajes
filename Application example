@@ -2,74 +2,73 @@
 #include <vector>
 using namespace std;
 
-class Planeta {
+class Planet {
 public:
-    string nombre;
-    string fecha_llegada;
-    string fecha_partida;
-    string horas;
-    string horay;
-    string cosas_bonitas;
-    
+    string name;
+    string arrival_date;
+    string departure_date;
+    string arrival_time;
+    string departure_time;
+    string beautiful_things;
 
-    Planeta(string nombre, string fecha_llegada, string fecha_partida, string horas , string horay,string cosas_bonitas) 
-        : nombre(nombre), fecha_llegada(fecha_llegada), fecha_partida(fecha_partida), horas(horas), horay(horay), cosas_bonitas(cosas_bonitas) {}
+    Planet(string name, string arrival_date, string departure_date, string arrival_time, string departure_time, string beautiful_things)
+        : name(name), arrival_date(arrival_date), departure_date(departure_date), arrival_time(arrival_time), departure_time(departure_time), beautiful_things(beautiful_things) {}
 };
 
-class Itinerario {
+class Itinerary {
 public:
-    vector<Planeta> planetas;
+    vector<Planet> planets;
 
-    void agregar_planeta(Planeta planeta) {
-        planetas.push_back(planeta);
+    void add_planet(Planet planet) {
+        planets.push_back(planet);
     }
 
-    void mostrar_planeta(int indice) {
-        if (indice >= 0 && indice < planetas.size()) {
-            cout << "Planeta " << indice+1 << ":\n";
-            cout << "Nombre: " << planetas[indice].nombre << "\n";
-            cout << "Fecha de llegada: " << planetas[indice].fecha_llegada << "\n";
-            cout << "Fecha de partida: " << planetas[indice].fecha_partida << "\n";
-             cout << "Hora de llegada: " << planetas[indice].horas << "\n";
-            cout << "Hora de partida: " << planetas[indice].horay << "\n";
-            cout << "Cosas bonitas: " << planetas[indice].cosas_bonitas << "\n\n";
-        } else {
-            cout << "Índice inválido.\n";
+    void show_planet(int index) {
+        if (index >= 0 && index < planets.size()) {
+            cout << "Planet " << index + 1 << ":\n";
+            cout << "Name: " << planets[index].name << "\n";
+            cout << "Arrival Date: " << planets[index].arrival_date << "\n";
+            cout << "Departure Date: " << planets[index].departure_date << "\n";
+            cout << "Arrival Time: " << planets[index].arrival_time << "\n";
+            cout << "Departure Time: " << planets[index].departure_time << "\n";
+            cout << "Beautiful Things: " << planets[index].beautiful_things << "\n\n";
+        }
+        else {
+            cout << "Invalid index.\n";
         }
     }
 };
 
-// Ejemplo de uso
+// Example of usage
 int main() {
-    Itinerario itinerario;
-    itinerario.agregar_planeta(Planeta("Marte", "10/10/2023", "15/10/2023","5:00 AM","5:04 AM", "El planeta rojo, famoso por sus tormentas de polvo y el monte Olimpo, el volcán más grande del sistema solar."));
-    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","5:00","6:30", "El planeta más grande del sistema solar, conocido por su Gran Mancha Roja, una tormenta más grande que la Tierra."));
-    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","6:30","8:30", "Viaje a la luna io"));
-    itinerario.agregar_planeta(Planeta("Júpiter", "16/10/2023", "20/10/2023","6:30","8:30", "Viaje a calisto"));
-    int eleccion;
-    char continuar;
-    vector<int> planetas_visitados;
-    
+    Itinerary itinerary;
+    itinerary.add_planet(Planet("Mars", "10/10/2023", "15/10/2023", "5:00 AM", "5:04 AM", "The red planet, famous for its dust storms and Olympus Mons, the largest volcano in the solar system."));
+    itinerary.add_planet(Planet("Jupiter", "16/10/2023", "20/10/2023", "5:00 AM", "6:30 AM", "The largest planet in the solar system, known for its Great Red Spot, a storm larger than Earth."));
+    itinerary.add_planet(Planet("Jupiter Io", "16/10/2023", "20/10/2023", "6:30 AM", "8:30 AM", "Trip to the moon Io."));
+    itinerary.add_planet(Planet("Jupiter Callisto", "16/10/2023", "20/10/2023", "6:30 AM", "8:30 AM", "Trip to Callisto."));
+    int choice;
+    char continue_option;
+    vector<int> visited_planets;
+
     do {
-        cout << "Por favor, elige un planeta para visitar:\n1. Marte\n2. Júpiter\n3. Júpiter IO\n4. Júpiter Calisto\n";
-        cin >> eleccion;
-        
-        if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4  ) {
-            itinerario.mostrar_planeta(eleccion - 1);
-            planetas_visitados.push_back(eleccion - 1);
-        } else {
-            cout << "Elección inválida.\n";
+        cout << "Please choose a planet to visit:\n1. Mars\n2. Jupiter\n3. Jupiter Io\n4. Jupiter Callisto\n";
+        cin >> choice;
+
+        if (choice >= 1 && choice <= 4) {
+            itinerary.show_planet(choice - 1);
+            visited_planets.push_back(choice - 1);
         }
-        
-        cout << "¿Deseas visitar otro planeta? (s/n)\n";
-        cin >> continuar;
-        
-    } while (continuar == 's' || continuar == 'S');
-    
-    cout << "\nHas visitado los siguientes planetas:\n";
-    for (int i =0;i<planetas_visitados.size();i++) {
-        itinerario.mostrar_planeta(i);
+        else {
+            cout << "Invalid choice.\n";
+        }
+
+        cout << "Do you want to visit another planet? (y/n)\n";
+        cin >> continue_option;
+
+    } while (continue_option == 'y' || continue_option == 'Y');
+
+    cout << "\nYou have visited the following planets:\n";
+    for (int i = 0; i < visited_planets.size(); i++) {
+        itinerary.show_planet(visited_planets[i]);
     }
-    
-    return 0;
 }
